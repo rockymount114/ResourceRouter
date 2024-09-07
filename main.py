@@ -28,7 +28,7 @@ def get_db_engine():
             host=SERVER_ADDRESS,
             database=DATABASENAME,
             query={"driver": "ODBC Driver 17 for SQL Server"}
-        )       
+        )      
 
     except sqlalchemy.exc.OperationalError as e:
         print(f"Operational Error: {e}")
@@ -52,8 +52,7 @@ def fetch_initial_data(engine):
         FORMAT(lwmain.date_fnd, 'yyyy-MM-ddTHH:mm:ss+00:00') AS datetimeto,
         FORMAT(lwmain.date_rept, 'yyyy-MM-ddTHH:mm:ss+00:00') AS report_time,
         FORMAT(lwmain.date_rept, 'yyyy-MM-ddTHH:mm:ss+00:00') AS last_updated,
-        'rms8' AS datasource,
-        lwmain.dataset_updated_at AS datasource_update_at
+        'rms8' AS datasource
     FROM lwmain     
     JOIN lwchrg ON lwmain.lwmainid = lwchrg.lwmainid
     WHERE lwmain.inci_id IS NOT NULL
@@ -78,8 +77,7 @@ def fetch_new_data(engine, last_update):
         FORMAT(lwmain.date_fnd, 'yyyy-MM-ddTHH:mm:ss+00:00') AS datetimeto,
         FORMAT(lwmain.date_rept, 'yyyy-MM-ddTHH:mm:ss+00:00') AS report_time,
         FORMAT(lwmain.date_rept, 'yyyy-MM-ddTHH:mm:ss+00:00') AS last_updated,
-        'rms8' AS datasource,
-        lwmain.dataset_updated_at AS datasource_update_at
+        'rms8' AS datasource
     FROM lwmain     
     JOIN lwchrg ON lwmain.lwmainid = lwchrg.lwmainid
     WHERE lwmain.inci_id IS NOT NULL
