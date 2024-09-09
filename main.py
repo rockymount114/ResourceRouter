@@ -40,7 +40,7 @@ def get_db_engine():
 # Fetch initial data
 def fetch_initial_data(engine):
     query = """
-    SELECT
+    SELECT TOP 100
         lwmain.inci_id AS id,
         CAST(REPLACE(lwmain.streetnbr,',','') AS CHAR(8)) + lwmain.street AS [address],
         CASE WHEN LEN(lwmain.geox) < 9 THEN CAST(((CAST(lwmain.geox AS DECIMAL(16,2)) * (POWER(10, (9 - LEN(lwmain.geox)))))/100) AS DECIMAL(16,2)) 
@@ -106,7 +106,7 @@ def main():
     engine = get_db_engine()
     
     # Fetch and upload initial data if needed
-    initial_data_file = 'InitialData_Uploads.csv'
+    initial_data_file = 'test.csv'
     initial_data = fetch_initial_data(engine)
     write_to_csv(initial_data, initial_data_file)
     # response = upload_to_api(initial_data_file)
