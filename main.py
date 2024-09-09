@@ -58,7 +58,7 @@ def fetch_initial_data(engine):
     WHERE lwmain.inci_id IS NOT NULL
     AND lwmain.geox != 0
     AND lwmain.geoy != 0
-    AND lwmain.date_rept >= '1999-01-01' AND lwmain.date_rept <= '2024-07-31'
+    AND lwmain.date_rept >= '1999-01-01' 
     """
     return pd.read_sql(query, engine)
 
@@ -93,7 +93,7 @@ def write_to_csv(df, filename):
 
 # Upload CSV to API
 def upload_to_api(csv_file):
-    url = "https://hooks.prismatic.io/trigger/SW5zdGFuY2U6Mzc3MjBiNjctOGI5OC00NWI2LWExODktZTNjOGJjOWQzZjFh"
+    url = "https://hooks.prismatic.io/trigger/SW5zdGFuY2VGbG93Q29uZmlnOmIyYzk4MWMyLTEyZDItNDExYS05ZTNiLTc1MGYzNzIzMGJmYg=="
     headers = {
         "Content-Type": "text/csv",
         "Api-Key": API_KEY

@@ -4,10 +4,10 @@ import requests
 # df = pd.read_csv('test.csv')
 
 def upload_to_api(csv_file):
-    url = "https://hooks.prismatic.io/trigger/SW5zdGFuY2U6Mzc3MjBiNjctOGI5OC00NWI2LWExODktZTNjOGJjOWQzZjFh"
+    url = "https://hooks.prismatic.io/trigger/SW5zdGFuY2VGbG93Q29uZmlnOmIyYzk4MWMyLTEyZDItNDExYS05ZTNiLTc1MGYzNzIzMGJmYg=="
     headers = {
         "Content-Type": "text/csv",
-        "Api-Key": '6880382b49db5dbf70a314294bb3eab9'
+        "Api-Key": 'd799bc3ea87b182112eeb787f4c5a876'
     }
     with open(csv_file, 'rb') as f:
         response = requests.post(url, headers=headers, data=f)

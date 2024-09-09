@@ -1,0 +1,1 @@
+curl -X POST -H "Content-Type: text/csv" -H "Api-Key: 6880382b49db5dbf70a314294bb3eab9 --data-binary @C:\ShotSpotter\DailyData_Uploads.csv https://hooks.prismatic.io/trigger/SW5zdGFuY2U6Mzc3MjBiNjctOGI5OC00NWI2LWExODktZTNjOGJjOWQzZjFh
