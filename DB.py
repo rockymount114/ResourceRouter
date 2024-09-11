@@ -4,6 +4,8 @@ from sqlalchemy import create_engine, text
 from sqlalchemy.engine import URL
 import pyodbc
 from dotenv import load_dotenv
+import pyproj
+
 
 
 class DatabaseManager:
@@ -49,3 +51,13 @@ class DatabaseManager:
     def write_to_csv(self, df, filename):
         """Provides a simple way to write a dataframe to a CSV file"""
         df.to_csv(filename, index=False, sep=',', quoting=1)
+     
+    @staticmethod    
+    def get_cords(x, y):        
+        src_crs = pyproj.CRS.from_epsg(2264)  # NAD_1983_StatePlane_California_VI_FIPS_0406
+        tgt_crs = pyproj.CRS.from_epsg(4326)  # WGS 84 (latitude and longitude)
+
+        transformer = pyproj.Transformer.from_crs(src_crs, tgt_crs)
+        lat, lon = transformer.transform(x, y)
+
+        return lat, lon
