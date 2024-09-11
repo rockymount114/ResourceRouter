@@ -20,8 +20,8 @@ def upload_to_api(csv_file):
 
 
 if __name__ == "__main__":
-    response = upload_to_api('sample_data.csv')
-    print(f'Daily data upload response: {response.status_code} - {response.text}')
+    response = upload_to_api('initial_data.csv')
+    print(f'Data upload response: {response.status_code} - {response.text}')
 
 # load_dotenv()
 

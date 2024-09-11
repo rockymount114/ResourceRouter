@@ -22,7 +22,7 @@ if __name__ == "__main__":
         query = initial_query # Set query here
         df = db_manager.fetch_data(db_manager.engine, query)
         if df is not None:
-            db_manager.write_to_csv(df, 'sample_data.csv')
-            print(len(df))
+            db_manager.write_to_csv(df, 'initial_data.csv')
+            print(f"{len(df)} rows have been saved to the csv file")
     else:
         print("Failed to create database engine.")

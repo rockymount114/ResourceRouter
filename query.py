@@ -1,6 +1,6 @@
 
 initial_query = f'''
-SELECT TOP 1000
+SELECT
         lwmain.inci_id AS id,
         CAST(REPLACE(lwmain.streetnbr,',','') AS CHAR(8)) + lwmain.street AS [address],
         CASE WHEN LEN(lwmain.geox) < 9 THEN CAST(((CAST(lwmain.geox AS DECIMAL(16,2)) * (POWER(10, (9 - LEN(lwmain.geox)))))/100) AS DECIMAL(16,2)) 
@@ -19,7 +19,7 @@ SELECT TOP 1000
     WHERE lwmain.inci_id IS NOT NULL
     AND lwmain.geox != 0
     AND lwmain.geoy != 0
-    AND lwmain.date_rept >= '1999-01-01' 
+    AND lwmain.date_rept >= '2019-01-01' 
 
 '''
 
