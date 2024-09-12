@@ -1,32 +1,39 @@
 import pandas as pd
 import requests, os
 from dotenv import load_dotenv
-from DB import DatabaseManager
+from DB import DatabaseManager, EmailManager
 from query import initial_query, daily_query
 from sqlalchemy import text
 from dotenv import load_dotenv
 
 load_dotenv()
-API_URL = os.getenv("API_URL")
-API_KEY = os.getenv("API_KEY")
 
+EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
+EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
+
+if EMAIL_ADDRESS is None or EMAIL_PASSWORD is None:
+    raise ValueError("EMAIL_ADDRESS and EMAIL_PASSWORD must be set in the environment variables.")
+else:
+    email_manager = EmailManager(EMAIL_ADDRESS, EMAIL_PASSWORD)
+
+    email_manager.send_email("Test", "Test", "ip114@msn.com")
 
 #### default upload to api
     
-def upload_to_api(csv_file):
-    url = API_URL
-    headers = {
-        "Content-Type": "text/csv",
-        "Api-Key": API_KEY
-    }
-    with open(csv_file, 'rb') as f:
-        response = requests.post(url=url, headers=headers, data=f, stream=True)
-    return response
+# def upload_to_api(csv_file):
+#     url = API_URL
+#     headers = {
+#         "Content-Type": "text/csv",
+#         "Api-Key": API_KEY
+#     }
+#     with open(csv_file, 'rb') as f:
+#         response = requests.post(url=url, headers=headers, data=f, stream=True)
+#     return response
 
 
-if __name__ == "__main__":
-    response = upload_to_api('initial_data.csv')
-    print(f'Data upload response: {response.status_code} - {response.text}')
+# if __name__ == "__main__":
+#     response = upload_to_api('initial_data.csv')
+#     print(f'Data upload response: {response.status_code} - {response.text}')
 
 
 # load_dotenv()

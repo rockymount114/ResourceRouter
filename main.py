@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 from datetime import datetime
 from time import sleep
 
-from DB import DatabaseManager
+from DB import DatabaseManager, EmailManager
 from query import initial_query, daily_query
 
 load_dotenv()
@@ -53,6 +53,15 @@ if __name__ == "__main__":
         with open('log.txt', 'a') as f:
                 current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 f.write(f"{current_time}: {len(df_daily)} rows daily data have been pushed to the API\n")
+                
+        EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
+        EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
+
+        if EMAIL_ADDRESS is None or EMAIL_PASSWORD is None:
+            raise ValueError("EMAIL_ADDRESS and EMAIL_PASSWORD must be set in the environment variables.")
+        else:
+            email_manager = EmailManager(EMAIL_ADDRESS, EMAIL_PASSWORD)
+            email_manager.send_email(f"{len(df_daily)} rows daily data have been sent to the API", "Email sent ok", "ip114@msn.com")
                 
     else:
         print("Failed to create database engine.")
