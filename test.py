@@ -7,14 +7,14 @@ from sqlalchemy import text
 from dotenv import load_dotenv
 
 load_dotenv()
-
+API_URL = os.getenv("API_URL")
 API_KEY = os.getenv("API_KEY")
 
 
 #### default upload to api
     
 def upload_to_api(csv_file):
-    url = "https://hooks.prismatic.io/trigger/SW5zdGFuY2VGbG93Q29uZmlnOmIyYzk4MWMyLTEyZDItNDExYS05ZTNiLTc1MGYzNzIzMGJmYg=="
+    url = API_URL
     headers = {
         "Content-Type": "text/csv",
         "Api-Key": API_KEY
