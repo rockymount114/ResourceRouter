@@ -6,10 +6,18 @@ python -m venv venv
 venv/Scripts/activate
 pip install -r requirements.txt
 ```
+or 
+`pip install pandas, requests, psycopg2, sqlalchemy, pyodbc, python-dotenv`
 ## get daily data
 
 ```
 python main.py
+```
+
+## Get avl data and push to API
+
+```
+python avl.py
 ```
 
 ## Flow
