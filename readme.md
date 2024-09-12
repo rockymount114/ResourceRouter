@@ -1,10 +1,18 @@
 
-## {"error":"Specified key does not match expected key."}
+## Setup
 
+```
+python -m venv venv
+venv/Scripts/activate
+pip install -r requirements.txt
+```
+## get daily data
 
+```
+python main.py
+```
 
-#
-
+## Flow
 
 ```mermaid
 
