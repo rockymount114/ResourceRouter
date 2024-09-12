@@ -59,30 +59,27 @@ avl_query = f'''
                     SELECT 
                     u.name
                     , u.unitperid
-                    , l.inci_id
-                    , l.status
-                    , l.speed
-                    , l.heading
-
-                    , l.agency
-                    , l.vehicleid
-                    , u.officerid
-                    , u.emdept_id
-                    , u.intime
-                    , u.outtime
-
+                    --, l.inci_id
+                    --, l.status
+                    --, l.speed
+                    --, l.heading
+                    --, l.agency
+                    --, l.vehicleid
+                    --, u.officerid
+                    --, u.emdept_id
+                    --, u.intime
+                    --, u.outtime
                     , l.geox
                     , l.geoy
                     , l.latitude
                     , l.longitude
                     , l.timestamp
-
                     FROM [Cad].[dbo].[avllog] l
                     JOIN [dbo].[unitper] u
                     ON l.unitcode = u.unitcode
                     AND l.unitperid = u.unitperid
 
-                    WHERE l.timestamp >= DATEADD(minute, -15, GETDATE())
+                    WHERE l.timestamp >= DATEADD(hour, -4, GETDATE())
   
 '''
 

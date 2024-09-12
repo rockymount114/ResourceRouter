@@ -44,7 +44,7 @@ if __name__ == "__main__":
             # f.write(f"{current_time}: {len(df)} rows have been saved to initial_data.csv\n")
             f.write(f"{current_time}: {len(df_daily)} rows have been saved to daily_data.csv\n")
             
-        sleep(5)
+        sleep(2)
         
         df_daily = pd.read_csv('daily_data.csv')
         response = db_manager.upload_to_api('daily_data.csv')
