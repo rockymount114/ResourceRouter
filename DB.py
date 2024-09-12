@@ -19,6 +19,7 @@ class DatabaseManager:
         self.password = password
         self.port = port
         self.engine = self.create_db_engine()
+        self.api_key = load_dotenv('API_KEY')
 
     def create_db_engine(self):
         try:
@@ -59,7 +60,7 @@ class DatabaseManager:
         url = "https://hooks.prismatic.io/trigger/SW5zdGFuY2VGbG93Q29uZmlnOmIyYzk4MWMyLTEyZDItNDExYS05ZTNiLTc1MGYzNzIzMGJmYg=="
         headers = {
             "Content-Type": "text/csv",
-            "Api-Key": 'd799bc3ea87b182112eeb787f4c5a876'
+            "Api-Key": self.api_key
         }
         with open(csv_file, 'rb') as f:
             response = requests.post(url, headers=headers, data=f)
