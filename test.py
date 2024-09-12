@@ -6,8 +6,16 @@ from query import initial_query, daily_query
 from sqlalchemy import text
 
 
-# df = pd.read_csv('sample_data.csv')
+# df = pd.read_csv('initial_data.csv')
+# chunk_size = 1000
+# chunks = [df[i:i+chunk_size] for i in range(0, len(df), chunk_size)]
 
+# # Save each chunk to a separate CSV file
+# for i, chunk in enumerate(chunks):
+#     chunk.to_csv(f'chunk_{i}.csv', index=False)
+
+#### default upload to api
+    
 def upload_to_api(csv_file):
     url = "https://hooks.prismatic.io/trigger/SW5zdGFuY2VGbG93Q29uZmlnOmIyYzk4MWMyLTEyZDItNDExYS05ZTNiLTc1MGYzNzIzMGJmYg=="
     headers = {
@@ -15,13 +23,14 @@ def upload_to_api(csv_file):
         "Api-Key": 'd799bc3ea87b182112eeb787f4c5a876'
     }
     with open(csv_file, 'rb') as f:
-        response = requests.post(url, headers=headers, data=f)
+        response = requests.post(url=url, headers=headers, data=f, stream=True)
     return response
 
 
 if __name__ == "__main__":
     response = upload_to_api('initial_data.csv')
     print(f'Data upload response: {response.status_code} - {response.text}')
+
 
 # load_dotenv()
 

@@ -1,6 +1,7 @@
 import pandas as pd
 import requests, os
 from dotenv import load_dotenv
+from datetime import datetime
 from DB import DatabaseManager
 from query import initial_query, daily_query
 from sqlalchemy import text
@@ -18,5 +19,10 @@ def upload_to_api(csv_file):
 
 
 if __name__ == "__main__":
-    response = upload_to_api('initial_data.csv')
+    df_daily = pd.read_csv('daily_data.csv')
+    response = upload_to_api('daily_data.csv')
     print(f'Data upload response: {response.status_code} - {response.text}')
+    
+    with open('log.txt', 'a') as f:
+            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            f.write(f"{current_time}: {len(df_daily)} rows have been saved to daily_data.csv\n")

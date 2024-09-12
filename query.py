@@ -19,9 +19,10 @@ SELECT
     WHERE lwmain.inci_id IS NOT NULL
     AND lwmain.geox != 0
     AND lwmain.geoy != 0
-    AND lwmain.date_rept >= '2019-01-01' 
+    AND lwmain.date_rept >= '2019-01-01'
 
 '''
+
 
 # this for daily data within one month data
 daily_query = f'''
@@ -50,16 +51,68 @@ daily_query = f'''
     WHERE lwmain.inci_id IS NOT NULL
     AND lwmain.geox != 0
     AND lwmain.geoy != 0
-    AND lwmain.date_rept >= DATEADD(month, -1, GETDATE())       
+    AND lwmain.date_rept >= DATEADD(day, -30, GETDATE())       
 '''
 
 # this avl query has already corrected the x,y coordinates, csv size is 500MB
 avl_query = f'''
-                SELECT 
-                    l.name
+                    SELECT 
+                    u.name
+                    , u.unitperid
+                    , l.inci_id
+                    , l.status
+                    , l.speed
+                    , l.heading
+
+                    , l.agency
+                    , l.vehicleid
+                    , u.officerid
+                    , u.emdept_id
+                    , u.intime
+                    , u.outtime
+
                     , l.geox
                     , l.geoy
+                    , l.latitude
+                    , l.longitude
                     , l.timestamp
-                FROM dbo.v_avl  l
+
+                    FROM [Cad].[dbo].[avllog] l
+                    JOIN [dbo].[unitper] u
+                    ON l.unitcode = u.unitcode
+                    AND l.unitperid = u.unitperid
+
+                    WHERE l.timestamp >= DATEADD(minute, -15, GETDATE())
   
 '''
+
+
+# daily_query = f'''
+# SELECT [id]
+#       ,[address]
+#       ,[pointx]
+#       ,[pointy]
+#       ,[class]
+#       ,[datetimefrom]
+#       ,[datetimeto]
+#       ,[report_time]
+#       ,[last_updated]
+#       ,[datasource]
+#   FROM [dbo].[v_inci_api]
+#   WHERE [datetimefrom] >= DATEADD(DAY, -1, GETDATE())
+
+# '''
+# initial_query = f'''
+# SELECT [id]
+#       ,[address]
+#       ,[pointx]
+#       ,[pointy]
+#       ,[class]
+#       ,[datetimefrom]
+#       ,[datetimeto]
+#       ,[report_time]
+#       ,[last_updated]
+#       ,[datasource]
+#   FROM [dbo].[v_inci_api]
+
+# '''
