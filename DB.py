@@ -19,6 +19,7 @@ class DatabaseManager:
         self.password = password
         self.port = port
         self.engine = self.create_db_engine()
+        self.api_url = load_dotenv('API_URL')
         self.api_key = load_dotenv('API_KEY')
 
     def create_db_engine(self):
@@ -53,11 +54,11 @@ class DatabaseManager:
             return None
         
     def write_to_csv(self, df, filename):
-        """Provides a simple way to write a dataframe to a CSV file"""
+        """write a dataframe to a CSV file"""
         df.to_csv(filename, index=False, sep=',', quoting=1)
     
     def upload_to_api(self, csv_file):
-        url = "https://hooks.prismatic.io/trigger/SW5zdGFuY2VGbG93Q29uZmlnOmIyYzk4MWMyLTEyZDItNDExYS05ZTNiLTc1MGYzNzIzMGJmYg=="
+        url = self.api_url
         headers = {
             "Content-Type": "text/csv",
             "Api-Key": self.api_key
@@ -66,6 +67,7 @@ class DatabaseManager:
             response = requests.post(url, headers=headers, data=f)
         return response
  
+    ### transform coordinates from NAD_1983_StatePlane_California_VI_FIPS_0406 to WGS 84 (latitude and longitude)
     @staticmethod    
     def get_cords(x, y):        
         src_crs = pyproj.CRS.from_epsg(2264)  # NAD_1983_StatePlane_California_VI_FIPS_0406
