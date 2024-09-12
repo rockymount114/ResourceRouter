@@ -62,6 +62,9 @@ if __name__ == "__main__":
         else:
             email_manager = EmailManager(EMAIL_ADDRESS, EMAIL_PASSWORD)
             email_manager.send_email(f"{len(df_daily)} rows daily data have been sent to the API", "Email sent ok", "ip114@msn.com")
+            with open('log.txt', 'a') as f:
+                current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                f.write(f"{current_time}: {len(df_daily)} rows daily data have been sent, email ok\n")
                 
     else:
         print("Failed to create database engine.")
