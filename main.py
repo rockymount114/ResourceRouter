@@ -48,11 +48,11 @@ if __name__ == "__main__":
         
         df_daily = pd.read_csv('daily_data.csv')
         response = db_manager.upload_to_api('daily_data.csv')
-        print(f'Data upload response: {response.status_code} - {response.text}')
+        # print(f'Data upload response: {response.status_code} - {response.text}')
         
         with open('log.txt', 'a') as f:
                 current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                f.write(f"{current_time}: {len(df_daily)} rows daily data have been pushed to the API\n")
+                f.write(f"{current_time}: {len(df_daily)} rows daily data have been pushed to the API, {response.status_code} - {response.text}\n")
                 
         EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
         EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
@@ -61,7 +61,7 @@ if __name__ == "__main__":
             raise ValueError("EMAIL_ADDRESS and EMAIL_PASSWORD must be set in the environment variables.")
         else:
             email_manager = EmailManager(EMAIL_ADDRESS, EMAIL_PASSWORD)
-            email_manager.send_email(f"{len(df_daily)} rows daily data have been sent to the API", "Email sent ok", "ip114@msn.com")
+            email_manager.send_email(f"{len(df_daily)} rows daily data have been sent to the API", "Email sent successfully, {response.status_code} - {response.text}", "ip114@msn.com")
             with open('log.txt', 'a') as f:
                 current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 f.write(f"{current_time}: {len(df_daily)} rows daily data have been sent, email ok\n")
