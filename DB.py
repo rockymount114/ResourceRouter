@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 import os
 import pyproj
 import smtplib
+from email.message import EmailMessage
 
 class DatabaseManager:
     def __init__(self, server_address, database, username, password, port=1433):
@@ -17,8 +18,8 @@ class DatabaseManager:
         self.password = password
         self.port = port
         self.engine = self.create_db_engine()
-        self.api_url = load_dotenv('API_URL')
-        self.api_key = load_dotenv('API_KEY')
+        self.api_url = os.getenv('API_URL')
+        self.api_key = os.getenv('API_KEY')
 
     def create_db_engine(self):
         try:
@@ -57,6 +58,7 @@ class DatabaseManager:
     
     def upload_to_api(self, csv_file):
         url = self.api_url
+        print(url)
         headers = {
             "Content-Type": "text/csv",
             "Api-Key": self.api_key
@@ -77,23 +79,21 @@ class DatabaseManager:
         return lat, lon
 
 class EmailManager:
-    def __init__(self, email, password):
-        self.email = email
-        self.password = password
-        self.server = 'smtp.office365.com'
-        self.port = 587
-        self.smtp = smtplib.SMTP(self.server, self.port)
-        self.smtp.starttls()
-        self.smtp.login(self.email, self.password)
-        
-    def send_email(self, subject, body, to_email):
-        """
-        Args:
-            subject: str email subject
-            body: str email body
-            to_email: str email recipient
-        """
-        message = f"Subject: {subject}\n\n{body}"
-        self.smtp.sendmail(self.email, to_email, message)
-        
-        
+    def __init__(self, email_address, email_password):
+        self.email_address = email_address
+        self.email_password = email_password
+
+    def send_email(self, subject, body, recipient):
+        # Set up the email server and send the email
+        msg = EmailMessage()
+        msg['Subject'] = subject
+        msg['From'] = self.email_address  # Ensure this is set
+        msg['To'] = recipient
+        msg.set_content(body)
+
+        # Send the email using smtplib
+        with smtplib.SMTP('smtp.example.com', 587) as server:  # Use your SMTP server
+            server.starttls()
+            server.login(self.email_address, self.email_password)
+            server.send_message(msg)
+

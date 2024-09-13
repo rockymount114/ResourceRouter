@@ -61,7 +61,12 @@ if __name__ == "__main__":
             raise ValueError("EMAIL_ADDRESS and EMAIL_PASSWORD must be set in the environment variables.")
         else:
             email_manager = EmailManager(EMAIL_ADDRESS, EMAIL_PASSWORD)
-            email_manager.send_email(f"{len(df_daily)} rows daily data have been sent to the API", "Email sent successfully, {response.status_code} - {response.text}", "ip114@msn.com")
+            
+            email_manager.send_email(
+                f"{len(df_daily)} rows daily data have been sent to the API", 
+                f"Email sent successfully, {response.status_code} - {response.text}",  
+                "ip114@msn.com"
+            )
             with open('log.txt', 'a') as f:
                 current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 f.write(f"{current_time}: {len(df_daily)} rows daily data have been sent, email ok\n")
