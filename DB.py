@@ -1,5 +1,6 @@
 import pandas as pd
 import requests
+from datetime import datetime
 import sqlalchemy
 from sqlalchemy import create_engine, text
 from sqlalchemy.engine import URL
@@ -86,16 +87,29 @@ class EmailManager:
         self.email_password = email_password
 
     def send_email(self, subject, body, recipient):
-        # Set up the email server and send the email
-        msg = EmailMessage()
-        msg['Subject'] = subject
-        msg['From'] = self.email_address  # Ensure this is set
-        msg['To'] = recipient
-        msg.set_content(body)
+        try:
+            # Set up the email server and send the email
+            msg = EmailMessage()
+            msg['Subject'] = subject
+            msg['From'] = self.email_address  # Ensure this is set
+            msg['To'] = recipient
+            msg.set_content(body)
 
-        # Update the SMTP server and port here
-        with smtplib.SMTP('smtp.office365.com', 587) as server:  # Use your SMTP server
-            server.starttls()
-            server.login(self.email_address, self.email_password)
-            server.send_message(msg)
+            # Update the SMTP server and port here
+            with smtplib.SMTP('smtp.office365.com', 587) as server:  # Use your SMTP server
+                server.starttls()
+                server.login(self.email_address, self.email_password)
+                server.send_message(msg)
+            
+            with open('log.txt', 'a') as f:
+                current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                f.write(f"{current_time}: Email sent successfully\n")
+        except smtplib.SMTPException as e:
+            with open('log.txt', 'a') as f:
+                current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                f.write(f"{current_time}: SMTP error occurred: {e}\n")
+        except Exception as e:
+            with open('log.txt', 'a') as f:
+                current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                f.write(f"{current_time}: An error occurred while sending the email: {e}\n")
 
