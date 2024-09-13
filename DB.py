@@ -20,6 +20,8 @@ class DatabaseManager:
         self.engine = self.create_db_engine()
         self.api_url = os.getenv('API_URL')
         self.api_key = os.getenv('API_KEY')
+        self.email_address = os.getenv('EMAIL_ADDRESS')
+        self.email_password = os.getenv('EMAIL_PASSWORD')
 
     def create_db_engine(self):
         try:
@@ -58,7 +60,7 @@ class DatabaseManager:
     
     def upload_to_api(self, csv_file):
         url = self.api_url
-        print(url)
+
         headers = {
             "Content-Type": "text/csv",
             "Api-Key": self.api_key
@@ -91,8 +93,8 @@ class EmailManager:
         msg['To'] = recipient
         msg.set_content(body)
 
-        # Send the email using smtplib
-        with smtplib.SMTP('smtp.example.com', 587) as server:  # Use your SMTP server
+        # Update the SMTP server and port here
+        with smtplib.SMTP('smtp.office365.com', 587) as server:  # Use your SMTP server
             server.starttls()
             server.login(self.email_address, self.email_password)
             server.send_message(msg)

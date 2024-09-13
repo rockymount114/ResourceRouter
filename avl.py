@@ -18,6 +18,9 @@ DATABASENAME = os.getenv('CAD_DATABASE')
 DB_USERNAME = os.getenv('CAD_USERNAME')
 DB_PASSWORD = os.getenv('CAD_PASSWORD')
 
+AVL_URL = os.getenv('AVL_URL')
+AVL_KEY = os.getenv('AVL_KEY')
+
 db_manager = DatabaseManager(SERVER_ADDRESS, DATABASENAME, DB_USERNAME, DB_PASSWORD)
     
 if __name__ == "__main__":    
@@ -36,9 +39,10 @@ if __name__ == "__main__":
             sleep(2)    
             
             # put data to api
-            db_manager.upload_to_api('avl_4hours.csv')
+            response = db_manager.upload_to_api('avl_4hours.csv')
+            
             with open('log.txt', 'a') as f:
                 current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                f.write(f"{current_time}: {len(df)} rows avl data have been pushed to the API\n")
+                f.write(f"{current_time}: {len(df)} rows avl data have been pushed to the API, {response.status_code} - {response.text}\n")
     else:
         print("Failed to create database engine.")

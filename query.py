@@ -69,8 +69,8 @@ avl_query = f'''
                     --, u.emdept_id
                     --, u.intime
                     --, u.outtime
-                    , l.geox
-                    , l.geoy
+                    --, l.geox
+                    --, l.geoy
                     , l.latitude
                     , l.longitude
                     , l.timestamp
