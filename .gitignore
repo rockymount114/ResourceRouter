@@ -3,3 +3,4 @@ venv/
 docs/.exe
 *.csv
 .env
+log.txt
