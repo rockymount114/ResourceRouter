@@ -19,8 +19,6 @@ class DatabaseManager:
         self.password = password
         self.port = port
         self.engine = self.create_db_engine()
-        self.api_url = os.getenv('API_URL')
-        self.api_key = os.getenv('API_KEY')
         self.email_address = os.getenv('EMAIL_ADDRESS')
         self.email_password = os.getenv('EMAIL_PASSWORD')
 
@@ -45,6 +43,7 @@ class DatabaseManager:
             return None
             
     def fetch_data(self, engine, query):
+        '''fetch the data from database using SQL query'''
         if engine is None:
             print("Engine is not initialized.")
             return None
@@ -60,11 +59,22 @@ class DatabaseManager:
         df.to_csv(filename, index=False, sep=',', quoting=1)
     
     def upload_to_api(self, csv_file):
-        url = self.api_url
-
+        '''Upload RMS data to API'''
+        url = os.getenv('API_URL')
         headers = {
             "Content-Type": "text/csv",
-            "Api-Key": self.api_key
+            "Api-Key": os.getenv('API_KEY')
+        }
+        with open(csv_file, 'rb') as f:
+            response = requests.post(url, headers=headers, data=f)
+        return response
+    
+    def upload_avl_to_api(self, csv_file):
+        '''Upload AVL data to API'''
+        url = os.getenv('AVL_URL')
+        headers = {
+            "Content-Type": "text/csv",
+            "Api-Key": os.getenv('AVL_KEY')
         }
         with open(csv_file, 'rb') as f:
             response = requests.post(url, headers=headers, data=f)

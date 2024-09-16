@@ -5,3 +5,14 @@
 2024-09-13 09:20:30: 621 rows have been saved to daily_data.csv
 2024-09-13 09:20:35: 621 rows daily data have been pushed to the API, 200 - {"executionId":"SW5zdGFuY2VFeGVjdXRpb25SZXN1bHQ6ZDM5MGFjNmUtMzgzYS00MGZhLTkzMDktYTkwZTEwZGZmMTlk"}
 2024-09-13 09:20:38: 621 rows daily data have been sent, email ok
+2024-09-13 09:37:09: 16683 rows avl data have been saved to the API
+2024-09-13 09:38:54: 593 rows avl data have been saved to the API
+2024-09-13 09:40:18: 529 rows avl data have been saved to the API
+2024-09-16 13:44:40: 561 rows avl data have been saved to the API
+2024-09-16 13:56:19: 566 rows avl data have been saved to the API
+2024-09-16 13:57:04: 547 rows avl data have been saved to the API
+2024-09-16 15:13:14: 491 rows avl data have been saved to the API
+2024-09-16 15:21:09: 610 rows avl data have been saved to the API
+2024-09-16 15:21:12: 610 rows avl data have been pushed to the API, 200 - {"executionId":"SW5zdGFuY2VFeGVjdXRpb25SZXN1bHQ6MDIzNDE0NzEtYjQ2NC00MGQ2LWI4MzItZmYwYmJkMzQyNmNl"}
+2024-09-16 15:21:15: Email sent successfully
+2024-09-16 15:21:15: 610 rows avl data have been sent, email ok

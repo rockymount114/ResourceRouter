@@ -79,7 +79,8 @@ avl_query = f'''
                     ON l.unitcode = u.unitcode
                     AND l.unitperid = u.unitperid
 
-                    WHERE l.timestamp >= DATEADD(hour, -4, GETDATE())
+                    WHERE l.timestamp >= DATEADD(minute, -5, GETDATE())
+                    ORDER BY u.name, l.timestamp
   
 '''
 
