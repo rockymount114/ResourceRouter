@@ -8,8 +8,7 @@ from dotenv import load_dotenv
 from DB import DatabaseManager, EmailManager
 from datetime import datetime
 from time import sleep
-
-from query import initial_query, daily_query,avl_query
+from query import avl_query
 
 load_dotenv()
 
@@ -47,27 +46,27 @@ if __name__ == "__main__":
                     current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                     f.write(f"{current_time}: {len(df)} rows avl data have been pushed to the API, {response.status_code} - {response.text}\n")
                 
-                # send email
+            else:
+                
+                with open('log.txt', 'a') as f:
+                        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                        f.write(f"{current_time}: error as {response.status_code}, {response.text}\n")
+                        
                 EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
                 EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
 
                 if EMAIL_ADDRESS is None or EMAIL_PASSWORD is None:
                     raise ValueError("EMAIL_ADDRESS and EMAIL_PASSWORD must be set in the environment variables.")
                 else:
-                    email_manager = EmailManager(EMAIL_ADDRESS, EMAIL_PASSWORD)
-                    
+                    email_manager = EmailManager(EMAIL_ADDRESS, EMAIL_PASSWORD)                    
                     email_manager.send_email(
-                        f"{len(df)} rows avl data have been sent to the avl API", 
-                        f"Email sent successfully, {response.status_code} - {response.text}",  
+                        f"AVL API error with status code: {response.status_code}", 
+                        f"AVL Data upload failed, error code: {response.status_code} - {response.text}",  
                         "ip114@msn.com"
                     )
                     with open('log.txt', 'a') as f:
                         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                        f.write(f"{current_time}: {len(df)} rows avl data have been sent, email ok\n")
-            else:
-                with open('log.txt', 'a') as f:
-                        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                        f.write(f"{current_time}: error as {response.status_code}, {response.text}\n")
+                        f.write(f"{current_time}: avl API error {response.status_code} - {response.text}\n")
                         
                 
     else:
