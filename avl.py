@@ -32,7 +32,7 @@ if __name__ == "__main__":
         
         if df is not None:
             db_manager.write_to_csv(df, 'avl_5minutes.csv')
-            print(len(df))
+            
             with open('log.txt', 'a') as f:
                 current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 f.write(f"{current_time}: {len(df)} rows avl data have been saved to the API\n")

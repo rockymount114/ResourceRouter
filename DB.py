@@ -77,7 +77,7 @@ class DatabaseManager:
             "Api-Key": os.getenv('AVL_KEY')
         }
         with open(csv_file, 'rb') as f:
-            response = requests.post(url, headers=headers, data=f)
+            response = requests.post(url=url, headers=headers, data=f)
         return response
  
     ### transform coordinates from NAD_1983_StatePlane_California_VI_FIPS_0406 to WGS 84 (latitude and longitude)
