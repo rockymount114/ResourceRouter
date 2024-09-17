@@ -1,6 +1,6 @@
 __pycache__/
 venv/
-docs/.exe
+docs/
 *.csv
 .env
 log.txt
