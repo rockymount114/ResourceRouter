@@ -7,7 +7,7 @@ venv/Scripts/activate
 pip install -r requirements.txt
 ```
 or 
-`pip install pandas, requests, psycopg2, sqlalchemy, pyodbc, python-dotenv`
+`pip install pandas, requests, psycopg2, sqlalchemy, pyodbc, python-dotenv, pyproj`
 ## get daily data
 
 ```

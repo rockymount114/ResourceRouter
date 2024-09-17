@@ -70,7 +70,7 @@ class DatabaseManager:
         return response
     
     def upload_avl_to_api(self, csv_file):
-        '''Upload AVL data to API'''
+        '''Upload AVL data to avl API'''
         url = os.getenv('AVL_URL')
         headers = {
             "Content-Type": "text/csv",
