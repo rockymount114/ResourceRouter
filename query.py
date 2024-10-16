@@ -35,10 +35,7 @@ daily_query = f'''
         CASE WHEN LEN(lwmain.geoy) < 9 THEN CAST(((CAST(lwmain.geoy AS DECIMAL(16,2)) * (POWER(10, (9 - LEN(lwmain.geoy)))))/1000) AS DECIMAL(16,2)) 
             ELSE CAST((CAST(lwmain.geoy AS DECIMAL(16,2)))/100 AS DECIMAL(16,2)) END AS pointy,
         
-		lwmain.city,
-		lwmain.state,
-		lwmain.latitude,
-		lwmain.longitude,
+		
 
 		lwchrg.ibr_code AS class,
         FORMAT(lwmain.date_occu, 'yyyy-MM-ddTHH:mm:ss+00:00') AS datetimefrom,
